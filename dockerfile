@@ -1,5 +1,6 @@
 #Base image taken from:https://hub.docker.com/r/cypress/browsers/tags
-FROM cypress/browsers:node-16.18.1-chrome-109.0.5414.74-1-ff-109.0-edge-109.0.1518.52-1
+FROM cypress/browsers:latest
+
 #Create the folder where our project will be stored
 RUN mkdir /cucumberproject
 #We make it our workdirectory
@@ -10,8 +11,10 @@ COPY ./jsconfig.json .
 COPY ./.cypress-cucumber-preprocessorrc.json .
 COPY ./cypress.config.js .
 COPY ./cypress ./cypress
+
 #Install the cypress dependencies in the work directory
 RUN npm install
+
 #Executable commands the container will use[Exec Form]
 ENTRYPOINT ["npx","cypress","run"]
 #With CMD in this case, we can specify more parameters to the last entrypoint.
