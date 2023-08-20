@@ -1,28 +1,45 @@
 class LoginPage {
-  elements = {
-    usernameInput: () => cy.get("#user-name"),
-    passwordInput: () => cy.get("#password"),
-    loginBtn: () => cy.get("#login-button"),
-    errorMessage: () => cy.get('h3[data-test="error"]'),
-  };
+    elements = {
+      loginPageHeader: () => cy.xpath("//h5[ text() = 'Login' ]"),
+      usernameInput: () => cy.xpath("//input[@placeHolder='Username']"),
+      passwordInput: () => cy.xpath("//input[@placeHolder='Password']"),
+      loginBtn: () => cy.get("button"),
+      invalidCredentialsError: () => cy.xpath("//p[text() = 'Invalid credentials']"),
+      requiredCredentialsError: () => cy.xpath("//span[ text() = 'Required' ]"),
+    };
 
-  typeUsername(username) {
-    this.elements.usernameInput().type(username);
+    checkLoginPageIsLoaded(){
+      while (this.elements.loginPageHeader().length > 0){
+        cy.wait(1000);
+    }
+    }
+  
+    typeUsername(username) {
+      this.elements.usernameInput().type(username);
+    }
+  
+    typePassword(password) {
+      this.elements.passwordInput().type(password);
+    }
+  
+    clickLogin() {
+      this.elements.loginBtn().click();
+    }
+  
+    submitLogin(username,password){
+      this.elements.usernameInput().type(username);
+      this.elements.passwordInput().type(password);
+      this.elements.loginBtn().click();
+    }
+
+    checkInvalidCredsMessage() {
+      this.elements.invalidCredentialsError().should('be.visible')
+    }
+
+    checkEmptyCredsMessage() {
+      this.elements.requiredCredentialsError().should('be.visible')
+    }
   }
-
-  typePassword(password) {
-    this.elements.passwordInput().type(password);
-  }
-
-  clickLogin() {
-    this.elements.loginBtn().click();
-  }
-
-  submitLogin(username,password){
-    this.elements.usernameInput().type(username);
-    this.elements.passwordInput().type(password);
-    this.elements.loginBtn().click();
-  }
-}
-
-export const loginPage = new LoginPage();
+  
+  export const loginPage = new LoginPage();
+  

@@ -4,27 +4,39 @@ import {
   Then,
 } from "@badeball/cypress-cucumber-preprocessor";
 import {loginPage} from '@pages/LoginPage'
+import { dashboardPage } from "@pages/DashboardPage";
 
-Given("A web browser is at the saucelabs login page", () => {
+Given("Open OrangeHR Login Page", () => {
   cy.visit("/");
 });
 
-When("A user enters the username {string}, the password {string}, and clicks on the login button", (username,password) => {
+When("A user logins with following the credentials {string}, {string}", (username,password) => {
   loginPage.submitLogin(username,password)
-  
+});
+
+When("A user logins with empty credentials", () => {
+  loginPage.clickLogin()
 });
 
 When("A user provides incorrect credentials, and clicks on the login button", (table) => {
   table.hashes().forEach((row) => {
-    cy.log(row.username);
-    cy.log(row.password);
+    console.log(row)
     loginPage.submitLogin(row.username, row.password)
-
   });
 });
-Then("the url will contains the inventory subdirectory", () => {
-  cy.url().should("contains", "/inventory.html");
+
+Then("Login Page should be fully loaded", () => {
+  loginPage.checkLoginPageIsLoaded()
 });
-Then("The error message {string} is displayed", (errorMessage) => {
-  loginPage.elements.errorMessage().should("have.text", errorMessage);
+
+Then("Dashboard page should be opened", () => {
+  dashboardPage.checkDashboardHeader();
+});
+
+Then("Invalid credentials message should be shown", () => {
+  loginPage.checkInvalidCredsMessage();
+});
+
+Then("Required messages should be shown for both inputs", () => {
+  loginPage.checkEmptyCredsMessage()
 });

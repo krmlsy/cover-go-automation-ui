@@ -4,6 +4,8 @@
   "description": "This project is meant to be a kind of template to start working with Cucumber and Cypress just cloning the project.",
   "main": "index.js",
   "scripts": {
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:electron": "cypress run --browser electron",
     "cypress:runner": "cypress open --e2e --browser chrome",
     "cypress:execution": "cypress run --spec cypress/e2e/features/*",
     "cypress:execution-tags": "cypress run --env tags=@mobile",
@@ -22,6 +24,7 @@
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
     "@shelex/cypress-allure-plugin": "^2.34.0",
     "cypress": "^12.0.2",
+    "cypress-xpath": "^2.0.1",
     "esbuild": "^0.16.4",
     "multiple-cucumber-html-reporter": "^3.0.1"
   }
