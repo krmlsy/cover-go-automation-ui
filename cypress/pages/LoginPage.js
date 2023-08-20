@@ -1,4 +1,6 @@
-class LoginPage {
+import Base from "./base/BasePage";
+
+class LoginPage extends Base{
     elements = {
       loginPageHeader: () => cy.xpath("//h5[ text() = 'Login' ]"),
       usernameInput: () => cy.xpath("//input[@placeHolder='Username']"),
@@ -10,7 +12,7 @@ class LoginPage {
 
     checkLoginPageIsLoaded(){
       while (this.elements.loginPageHeader().length > 0){
-        cy.wait(1000);
+        this.wait(1000);
     }
     }
   

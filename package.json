@@ -9,7 +9,7 @@
     "cypress:runner": "cypress open --e2e --browser chrome",
     "cypress:execution": "cypress run --spec cypress/e2e/features/*",
     "cypress:execution-tags": "cypress run --env tags=@mobile",
-    "cypress:execution-allure": "cypress run --env allure=true",
+    "cypress:execution-allure": "cypress run --env tags=@employee allure=true",
     "allure:clear": "rm -r allure-results/ allure-report cypress/screenshots || true",
     "allure:report": "allure generate allure-results --clean -o allure-report",
     "allure:history": "mv -f allure-report/history allure-results/history && rm -r allure-report || true"
@@ -17,9 +17,10 @@
   "keywords": [
     "cypress"
   ],
-  "author": "cucumber",
+  "author": "Kerem Ulusoy",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@badeball/cypress-cucumber-preprocessor": "^15.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
     "@shelex/cypress-allure-plugin": "^2.34.0",
